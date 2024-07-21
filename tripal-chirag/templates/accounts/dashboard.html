@@ -1,0 +1,131 @@
+{% load static %} {% load bootstrap5 %}
+{% bootstrap_css %} {% bootstrap_javascript %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tripal | Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+
+    <!-- {% include 'includes/navbar.html' %} -->
+    {% include 'includes/messages.html' %}
+
+    <div class="container" style="margin-top: 70px;">
+      <h3>Create a TRIP</h3>
+      <form action="{% url 'trips' %}" method="POST">
+        {% csrf_token %}
+
+        <div class="">
+          <label for="start">Start Location:</label>
+          <select
+            name="start"
+            id="select-start"
+            class="form-select mb-3"
+            required
+          >
+            <option value="" disabled selected>Select Start Location</option>
+            {% for location in locations %}
+            <option value="{{ location.name }}">{{ location.name }}</option>
+            {% endfor %}
+            <option value="new">Add New Location</option>
+          </select>
+          <input
+            type="text"
+            name="new_start_location"
+            id="new_start"
+            placeholder="New Start Location"
+            style="display: none"
+            class="form-control"
+          />
+        </div>
+
+        <div class="">
+          <label for="end">End Location:</label>
+          <select name="end" id="select-end" class="form-select mb-3" required>
+            <option value="" disabled selected>Select End Location</option>
+            {% for location in locations %}
+            <option value="{{ location.name }}">{{ location.name }}</option>
+            {% endfor %}
+            <option value="new">Add New Location</option>
+          </select>
+          <input
+            type="text"
+            name="new_end_location"
+            id="new_end"
+            placeholder="New End Location"
+            style="display: none"
+            class="form-control"
+          />
+        </div>
+
+        <div class="">
+          <label for="transport">Transport:</label>
+          <select
+            name="transport"
+            id="select-transport"
+            class="form-select mb-3"
+            required
+          >
+            <option value="" disabled selected>Select Transport</option>
+            {% for transport in transports %}
+            <option value="{{ transport.name }}">{{ transport.name }}</option>
+            {% endfor %}
+            <option value="new">Add New Transport</option>
+          </select>
+          <input
+            type="text"
+            id="new_transport"
+            placeholder="New Transport"
+            style="display: none"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="fare">Fare:</label>
+          <input type="number" name="fare" class="form-control" id="fare" placeholder="" />
+        </div>
+        <div class="">
+          <label for="date">Date:</label>
+          <input type="date" name="date" class="form-control mb-3" required />
+        </div>
+        <div class="">
+          <label for="time">Time:</label>
+          <input type="time" name="time" class="form-control mb-3" required />
+        </div>
+        <div class="">
+          <button type="submit" class="btn btn-success">Create Trip</button>
+        </div>
+      </form>
+
+      <div class="upcoming-trips">
+        <h3>Upcoming Trips</h3>
+        {% for trip in upcoming_trips %}
+        <div
+          class="box bg-info bg-opacity-10 border border-info rounded-end"
+          style="
+            border: 2px solid black;
+            border-radius: 3px;
+            padding: 10px;
+            max-width: 300px;
+          "
+        >
+          <p>{{ trip.start }}</p>
+          <p>{{ trip.end }}</p>
+          <p>{{ trip.date }}</p>
+          <p>{{ trip.time }}</p>
+          <p>
+            <a href="{% url 'trip_details' trip.id %}" class="btn btn-info">Other Details</a>
+          </p>
+          <p>
+            <a href="{% url 'delete_trip' trip.id %}" class="btn btn-danger">Delete trip</a>
+          </p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+  <script src="{% static 'js/dashboard.js' %}"></script>
+</html>

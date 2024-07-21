@@ -1,0 +1,26 @@
+{% load static %} {% include 'includes/messages.html' %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Requests made</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div class="page_loader"></div>
+    <h1>Requests made</h1>
+
+    {% for request in requests %}
+    <div class="box" style="border: 2px solid black; border-radius: 3px; padding: 10px; max-width: 300px;">
+      
+      <p>{{ request.description }}</p>
+      <p>{{ request.created_by }}</p>
+
+      <a href="{% url 'accept_request' request.id %}">Accept</a>
+      <a href="{% url 'reject_request' request.id %}">Reject</a>
+      
+    </div>
+    {% endfor %}
+    <a href="{% url 'dashboard'%}">Go to dashboard</a>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+{% load static %} {% include 'includes/messages.html' %}
+<!DOCTYPE html>
+<html lang="en-us">
+​
+<head>
+​
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+​
+    <title>Make a trip request</title>
+​
+    
+</head>
+​
+<body>
+    <h3>Create a Request</h3>
+    <form action="{% url 'request' trip_id%}" method="POST">
+      {% csrf_token %}
+      
+      
+      
+
+      <div class="">
+        <label for="description">description:</label>
+        <input
+          type="text"
+          name="description"
+          class="input-text"
+          placeholder="description"
+          required
+        />
+        <div class="">
+            <button type="submit" class="">Create Request</button>
+          </div>
+    </form>
+    <p>Created by {{user.username}}</p>
+</body>
+​
+</html>

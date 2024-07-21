@@ -1,0 +1,52 @@
+{% load static %} {% include 'includes/messages.html' %} {% load bootstrap5 %}
+{% bootstrap_css %} {% bootstrap_javascript %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tripal | Trips By {{ user.username }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    {% include 'includes/navbar.html' %}
+
+    <div class="container" style="margin-top: 70px">
+      <h1>Hi {{ user.username }}!</h1>
+      <h3>Trips Created</h3>
+
+      {% for trip in trips %}
+      <div
+        class="box bg-info bg-opacity-10 border border-info rounded-end"
+        style="
+          border: 2px solid black;
+          border-radius: 3px;
+          padding: 10px;
+          max-width: 300px;
+        "
+      >
+        <p>{{ trip.start }}</p>
+        <p>{{ trip.end }}</p>
+        <p>{{ trip.date }}</p>
+        <p>{{ trip.time }}</p>
+        <p>
+          <a href="{% url 'trip_details' trip.id %}" class="btn btn-info">Other Details</a>
+        </p>
+        <p>
+          <a href="{% url 'requestsmade' trip.id %}" class="btn btn-info">Requests</a>
+        </p>
+        <p>
+          <a href="{% url 'change_admin' trip.id %}" class="btn btn-info">Change trip admin</a>
+        </p>
+        <p>
+          <a href="{% url 'remove_participant' trip.id %}" class="btn btn-danger"
+          >Remove a participant</a
+          >
+        </p>
+        <p>
+          <a href="{% url 'delete_trip' trip.id %}" class="btn btn-danger">Delete trip</a>
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>

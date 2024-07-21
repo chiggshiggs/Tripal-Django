@@ -1,0 +1,56 @@
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">TRIPAL</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasDarkNavbar"
+        aria-controls="offcanvasDarkNavbar"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="offcanvas offcanvas-end text-bg-dark"
+        tabindex="-1"
+        id="offcanvasDarkNavbar"
+        aria-labelledby="offcanvasDarkNavbarLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
+            Find your way
+          </h5>
+          <button
+            type="button"
+            class="btn-close btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 gap-2 col-6">
+            <li class="nav-item">
+              <a class="nav-link text-dark btn btn-outline-primary" aria-current="page" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark btn btn-outline-primary" href="{% url 'trip_search' %}">Search Trips</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark btn btn-outline-primary" href="{% url 'trips_by_user' username=request.user.username %}">My Trips</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark btn btn-outline-primary" href="{% url 'getrequests' %}">Pending Requests</a>
+            </li>
+          </ul>
+          <form action="{% url 'logout' %}" method="POST" class="mt-3">
+            {% csrf_token %}
+            <div class="">
+              <button type="submit" class="btn btn-danger">Logout</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>

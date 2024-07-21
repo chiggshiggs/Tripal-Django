@@ -1,0 +1,89 @@
+{% load static %} {% include 'includes/messages.html' %} {% load bootstrap5 %}
+{% bootstrap_css %} {% bootstrap_javascript %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tripal | Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div class="container d-flex flex-column align-items-center justify-content-center">
+      <h1>Register Your Account</h1>
+
+      <form action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group form-box">
+          <input
+            type="text"
+            name="firstname"
+            class="input-text form-control"
+            placeholder="First Name"
+            required
+          />
+          <i class="fa fa-user"></i>
+        </div>
+        <div class="form-group form-box">
+          <input
+            type="text"
+            name="lastname"
+            class="input-text form-control"
+            placeholder="Last Name"
+            required
+          />
+          <i class="fa fa-user"></i>
+        </div>
+        <div class="form-group form-box">
+          <input
+            type="text"
+            name="username"
+            class="input-text form-control"
+            placeholder="Username"
+            required
+          />
+          <i class="fa fa-user"></i>
+        </div>
+        <div class="form-group form-box">
+          <input
+            type="email"
+            name="email"
+            class="input-text form-control"
+            placeholder="Email Address"
+            required
+          />
+          <i class="flaticon-mail"></i>
+        </div>
+        <div class="form-group form-box">
+          <input
+            type="password"
+            name="password"
+            class="input-text form-control"
+            placeholder="Password"
+            required
+          />
+          <i class="flaticon-lock"></i>
+        </div>
+        <div class="form-group form-box">
+          <input
+            type="password"
+            name="confirm_password"
+            class="input-text form-control"
+            placeholder="Confirm Password"
+            required
+          />
+          <i class="flaticon-lock"></i>
+        </div>
+        <div class="form-group mb-0 clearfix">
+          <button type="submit" class="btn btn-primary mt-3">
+            Register
+          </button>
+        </div>
+      </form>
+      <p>
+        Already a member?
+        <a href="{% url 'login' %}" class="btn btn-outline-info"> Login here</a>
+      </p>
+    </div>
+  </body>
+  <script src="{% static 'js/dashboard.js' %}"></script>
+</html>

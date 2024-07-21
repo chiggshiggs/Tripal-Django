@@ -1,0 +1,38 @@
+{% load static %} {% include 'includes/messages.html' %} {% load bootstrap5 %}
+{% bootstrap_css %} {% bootstrap_javascript %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Requests made by you ({{ user.username }})</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    {% include 'includes/navbar.html' %}
+
+    <div class="page_loader container" style="margin-top: 70px">
+      <h1>Hi {{ user.username }}!</h1>
+      <h3>Your Requests</h3>
+      {% if requests %}
+      {% for request in requests %}
+      <div
+        class="box"
+        style="
+          border: 2px solid black;
+          border-radius: 3px;
+          padding: 10px;
+          max-width: 300px;
+        "
+      >
+        <p>{{ request.trip }}</p>
+        <p>{{ request.description }}</p>
+        <p>{{ request.created_by }}</p>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p>No requests!</p>
+      {% endif %}
+      <a href="{% url 'dashboard'%}" class="btn btn-info">Go to dashboard</a>
+    </div>
+  </body>
+</html>

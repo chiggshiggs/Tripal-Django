@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+
+    <title>My Website</title>
+
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+
+        <h1>Welcome to My Website</h1> 
+        <form method='POST'>
+          {% csrf_token %}
+              {{ form }}
+              <input type="submit" value="submit address" />
+          </form>
+
+          <div>
+            
+            {% comment %} {% if external_data %}
+        <h2>External JSON Data</h2>
+        <pre>{{ external_data | safe }}</pre>
+    {% endif %} {% endcomment %}
+
+    {% if distance_value is not None %}
+    <h2>Distance Value</h2>
+    <p>Distance: {{ distance_value }} meters</p>
+    <p>Time Taken: {{time_taken}} seconds</p>
+{% endif %}
+
+    {% if external_data_error %}
+        <p>Error fetching external data: {{ external_data_error }}</p>
+    {% endif %}</div>
+
+
+<div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+mapboxgl.accessToken = '{{mapbox_access_token}}';
+const map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v12', // style URL
+    center: [28.61283, 77.22925649999999], // starting position [lng, lat]
+    zoom: 9, // starting zoom
+});
+// Create a new marker.
+let marker;
+{%for address in addresses%}
+marker = new mapboxgl.Marker()
+    .setLngLat([{{ address.long }}, {{ address.lat }}])
+    .setPopup(new mapboxgl.Popup().setHTML("<p>{{ address.address }}</p>"))
+    .addTo(map);
+    {%endfor%}
+</script>
+   
+    
+	
+  </body>
+</html>

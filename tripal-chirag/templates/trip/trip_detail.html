@@ -1,0 +1,32 @@
+{% load static %} {% include 'includes/messages.html' %} {% load bootstrap5 %}
+{% bootstrap_css %} {% bootstrap_javascript %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tripal | Trip Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    {% include 'includes/navbar.html' %}
+
+    <div class="page_loader container" style="margin-top: 70px">
+      <h1>Trip Details</h1>
+
+      <p>Start Location: {{ trip.start.name }}</p>
+      <p>End Location: {{ trip.start.name }}</p>
+      <p>Created By: {{ trip.created_by.username }}</p>
+      <p>Fare: {{ trip.fare }}</p>
+      <p>Transport: {{ trip.transport }}</p>
+      <p>Date: {{ trip.date }}</p>
+      <p>Time: {{ trip.time }}</p>
+
+      <h3>Participants:</h3>
+      <div class="d-flex">
+        {% for participant in participants %}
+        <p class="border border-info rounded p-2">{{ participant }}</p>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

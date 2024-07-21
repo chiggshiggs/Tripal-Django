@@ -1,0 +1,77 @@
+{% load static %} {% include 'includes/messages.html' %} {% load bootstrap5 %}
+{% bootstrap_css %} {% bootstrap_javascript %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tripal | Search Trips</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    {% include 'includes/navbar.html' %}
+
+    <div class="page_loader container" style="margin-top: 70px">
+      <h1>Search Trips</h1>
+      <form method="GET" action="{% url 'trip_search' %}" class="d-grid">
+        <div class="row">
+          <div class="col">
+            <select name="start" id="select-start" class="form-select">
+              <option value="" disabled selected>Select Start Location</option>
+              {% for location in locations %}
+              <option value="{{ location.name }}">{{ location.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col">
+            <select name="end" id="select-end" class="form-select">
+              <option value="" disabled selected>Select End Location</option>
+              {% for location in locations %}
+              <option value="{{ location.name }}">{{ location.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col">
+            <input
+              type="text"
+              name="created_by"
+              placeholder="Created By"
+              class="form-control"
+            />
+          </div>
+          <div class="col">
+            <input type="date" name="date" class="form-control" />
+          </div>
+        </div>
+        <div class="row justify-content-md-center mt-4">
+          <button type="submit" class="col-3 btn btn-info">Search</button>
+        </div>
+      </form>
+      {% if results %}
+      <h2>Search Results</h2>
+      {% for trip in results %}
+      <div
+        class="box bg-info bg-opacity-10 border border-info rounded-end"
+        style="
+          border: 2px solid black;
+          border-radius: 3px;
+          padding: 10px;
+          max-width: 300px;
+        "
+      >
+        <p>{{ trip.start }}</p>
+        <p>{{ trip.end }}</p>
+        <p>{{ trip.date }}</p>
+        <p>{{ trip.time }}</p>
+        <p>
+          <a href="{% url 'trip_details' trip.id %}" class="btn btn-info"
+            >Other Details</a
+          >
+        </p>
+        <p>
+          <a href="{% url 'request' trip.id %}" class="btn btn-success">Request a trip</a>
+        </p>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+  </body>
+</html>

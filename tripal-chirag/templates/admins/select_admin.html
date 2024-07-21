@@ -1,0 +1,33 @@
+{% load static %} {% include 'includes/messages.html' %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Change Admin of the trip</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div class="page_loader"></div>
+    
+    <form action="{% url 'change_admin' trip.id %}" method="POST">
+        {% csrf_token %}
+        <div class="">
+        <label for="new_admin">Select new admin:</label>
+        <select name="new_admin" id="new_admin" required>
+          <option value="" disabled selected>New Admin</option>
+          {% for participant in participants %}
+          {% if participant.username != user.username %}
+          <option value="{{ participant.username }}">{{ participant.username }}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="">
+        <button type="submit" class="">Make Admin</button>
+      </div>
+    </form>
+
+    <a href="{% url 'dashboard'%}">Go to dashboard</a>
+  </body>
+</html>
